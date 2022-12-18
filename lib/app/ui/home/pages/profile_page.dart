@@ -31,8 +31,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(radius: 50, backgroundColor: Theme.of(context).primaryColor),
-            SizedBox(height: 1.5.h),
             Text(_user?.displayName ?? '', style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 14.sp),),
             Text(_user?.email ?? ''),
             const Spacer(),
