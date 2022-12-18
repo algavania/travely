@@ -19,7 +19,7 @@ class DetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Image.asset('assets/image.png', height: 30.h, width: double.infinity, fit: BoxFit.cover,),
+            Image.network(place.imageUrl, height: 30.h, width: double.infinity, fit: BoxFit.cover,),
             Column(
               children: [
                 SizedBox(height: 28.h),

@@ -5,6 +5,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../main.dart';
 import '../routes/router.gr.dart';
+import '../widgets/custom_alert_dialog.dart';
 import '../widgets/custom_error_dialog.dart';
 
 class SharedCode {
@@ -33,6 +34,15 @@ class SharedCode {
         context: context,
         builder: (context) {
           return CustomErrorDialog(title: title, content: content);
+        });
+  }
+
+  static void showAlertDialog(
+      BuildContext context, String title, String content, Function onYesTap) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CustomAlertDialog(title: title, content: content, onYesTap: onYesTap);
         });
   }
 
@@ -69,7 +79,7 @@ class SharedCode {
       });
     } else {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        print('user $user');
+        context.loaderOverlay.hide();
         if (user == null) {
           appRouter.pushAndPopUntil(const LoginRoute(), predicate: (Route<dynamic> route) => false);
         } else {

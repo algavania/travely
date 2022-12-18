@@ -14,14 +14,8 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      appBarBuilder: (_, __) {
-        return AppBar(
-          title: const Text('Beranda'),
-        );
-      },
       routes: const [
         HomeRoute(),
-        FavoriteRoute(),
         ProfileRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
@@ -32,10 +26,6 @@ class _NavigationPageState extends State<NavigationPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Beranda',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorit',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

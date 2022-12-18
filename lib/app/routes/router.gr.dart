@@ -79,12 +79,6 @@ class AppRouter extends _i2.RootStackRouter {
         child: const _i1.HomePage(),
       );
     },
-    FavoriteRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i1.FavoritePage(),
-      );
-    },
     ProfileRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -120,11 +114,6 @@ class AppRouter extends _i2.RootStackRouter {
             _i2.RouteConfig(
               HomeRoute.name,
               path: '',
-              parent: NavigationRoute.name,
-            ),
-            _i2.RouteConfig(
-              FavoriteRoute.name,
-              path: 'favorite',
               parent: NavigationRoute.name,
             ),
             _i2.RouteConfig(
@@ -234,18 +223,6 @@ class HomeRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
-}
-
-/// generated route for
-/// [_i1.FavoritePage]
-class FavoriteRoute extends _i2.PageRouteInfo<void> {
-  const FavoriteRoute()
-      : super(
-          FavoriteRoute.name,
-          path: 'favorite',
-        );
-
-  static const String name = 'FavoriteRoute';
 }
 
 /// generated route for

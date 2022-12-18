@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sizer/sizer.dart';
 import 'package:travely/app/common/color_values.dart';
 import 'package:travely/app/common/shared_code.dart';
 import 'package:travely/app/routes/router.gr.dart';
-import 'package:travely/app/widgets/custom_text_field.dart';
 
+import '../../../blocs/blocs.dart';
 import '../../../data/models/place_model.dart';
+import '../../../repositories/repositories.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,32 +20,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _searchController = TextEditingController();
-  List<PlaceModel> _list = [
-    PlaceModel(
-        id: '',
-        description: 'Garuda Wisnu Kencana adalah sebuah tempat monumental yang dikembangkan sebagai taman budaya yang menampung berbagai kegiatan seni dan budaya lokal, berada pada sebuah bukit tandus dengan luas 240 hektar. Tempat wisata yang berada di wilayah Bali Selatan ini menjadi destinasi tour wajib bagi mereka yang liburan ke pulau Dewata Bali.',
-        name: 'Garuda Wisnu Kencana',
-        imageUrl: 'assets/image.png',
-        rating: 4.6,
-        location: 'Kuta Selatan, Kab. Badung')
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(SharedCode.defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (_, i) => _buildCard(_list[i]),
-                separatorBuilder: (_, __) => SizedBox(height: 2.h),
-                itemCount: _list.length),
-            SizedBox(height: 2.h),
-          ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('Beranda')),
+      body: BlocProvider(
+        create: (context) => PlaceBloc(
+            repository: RepositoryProvider.of<PlaceRepository>(context))
+          ..add(LoadPlaces()),
+        child: BlocBuilder<PlaceBloc, PlaceState>(
+          builder: (context, state) {
+            if (state is PlaceLoading) {
+              context.loaderOverlay.show();
+            }
+            if (state is PlaceInitial) {
+              context.loaderOverlay.hide();
+            }
+            if (state is PlaceLoaded) {
+              context.loaderOverlay.hide();
+              return state.places.isEmpty ? const Center(child: Text('Tidak ada data.')) : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(SharedCode.defaultPadding),
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (_, i) => _buildCard(state.places[i]),
+                      separatorBuilder: (_, __) => SizedBox(height: 2.h),
+                      itemCount: state.places.length),
+                ),
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );
@@ -62,10 +71,11 @@ class _HomePageState extends State<HomePage> {
             children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
+                  child: Image.network(
                     place.imageUrl,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    height: 30.h,
                   )),
               SizedBox(height: 2.h),
               Row(
@@ -91,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 0.5.h),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_pin,
                     color: ColorValues.navy,
                   ),

@@ -47,8 +47,10 @@ class _MyAppState extends State<MyApp> {
         child: MultiRepositoryProvider(
           providers: [
             RepositoryProvider(
-              lazy: false,
               create: (context) => AuthRepository(),
+            ),
+            RepositoryProvider(
+              create: (context) => PlaceRepository(),
             ),
           ],
           child: MaterialApp.router(

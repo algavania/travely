@@ -15,7 +15,7 @@ class UserModel extends Equatable {
     return UserModel(
       id: id,
       email: json['email'],
-      name: json['username'],
+      name: json['name'],
     );
   }
 

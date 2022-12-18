@@ -29,7 +29,6 @@ import '../ui/screens.dart';
         transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
         AutoRoute(path: '', page: HomePage),
-        AutoRoute(path: 'favorite', page: FavoritePage),
         AutoRoute(path: 'profile', page: ProfilePage),
       ],
     ),

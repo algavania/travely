@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ecode.travely">
-   <application
-        android:label="travely"
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="Travely"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
