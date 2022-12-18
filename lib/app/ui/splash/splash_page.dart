@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:travely/app/routes/router.gr.dart';
+import 'package:travely/app/common/shared_code.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -16,8 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      AutoRouter.of(context).pushAndPopUntil(const LoginRoute(),
-          predicate: (Route<dynamic> route) => false);
+      SharedCode().handleAuthenticationRouting(context: context);
     });
     super.initState();
   }
@@ -32,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover),
           SafeArea(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(

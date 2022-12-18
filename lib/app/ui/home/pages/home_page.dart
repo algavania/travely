@@ -36,11 +36,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomTextField(
-                hintText: 'Cari objek wisata',
-                controller: _searchController,
-                prefixIcon: const Icon(Icons.search)),
-            SizedBox(height: 2.h),
             ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (_, i) => _buildCard(_list[i]),
